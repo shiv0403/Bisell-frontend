@@ -18,6 +18,8 @@ module.exports = {
       black1: "#120C44",
       black: "#000000",
       warning: "#F9CF48",
+      offWhite: "#e3e3e3",
+      lightText: "#5C7A7D",
     },
     extend: {
       colors: {
@@ -30,6 +32,19 @@ module.exports = {
         black1: "#120C44",
         black: "#000000",
         warning: "#F9CF48",
+        offWhite: "#e3e3e3",
+        lightText: "#5C7A7D",
+      },
+      fontSize: {
+        11: "11px",
+        30: "30px",
+        40: "40px",
+      },
+      width: {
+        "100p": "100%",
+        "80p": "80%",
+        "50p": "50%",
+        "20p": "20%",
       },
     },
   },

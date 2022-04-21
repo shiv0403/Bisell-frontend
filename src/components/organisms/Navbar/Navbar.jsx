@@ -29,7 +29,7 @@ function Navbar() {
   const classes = useStyles();
 
   return (
-    <div className="flex w-full justify-around p-4 items-center">
+    <div className="flex w-full justify-around p-4 items-center border-b-2 border-offWhite z-100">
       {/* logo */}
       <div>
         <img src={Logo} className="h-12 w-50" />
@@ -38,13 +38,13 @@ function Navbar() {
       {/* search bar */}
       <div className="flex w-1/2">
         <CustomInput
-          placeholder="Search for you essentials"
-          className="w-full border-2 border-primary p-2 text-lg"
+          placeholder="Search for you essentials..."
+          className="w-full border-2 border-primary p-2 text-lg bg-white"
           width="w-full"
         />
         <CustomButton
           icon={<SearchIcon className={classes.icon} />}
-          className="color-white p-2 px-3 h-12"
+          className="color-white p-2 px-3 h-12 bg-primary"
         />
       </div>
 
