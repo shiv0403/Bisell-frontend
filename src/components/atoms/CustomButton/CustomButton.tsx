@@ -21,7 +21,7 @@ export interface CustomButtonProps {
  */
 
 const CustomButton: React.FC<CustomButtonProps> = ({
-  text,
+  text = "",
   outlined = false,
   disabled = false,
   size,
@@ -43,12 +43,12 @@ const CustomButton: React.FC<CustomButtonProps> = ({
           "bg-primary text-white": !outlined,
           "bg-white text-coolGray border border-lightGray": outlined,
         },
-        "active:bg-primary rounded-lg font-nexabold leading-5",
+        "active:bg-primary font-nexabold leading-5",
         className
       )}
       {...otherProps}
     >
-      {text}
+      {text !== "" ? text : icon}
     </button>
   );
 };
