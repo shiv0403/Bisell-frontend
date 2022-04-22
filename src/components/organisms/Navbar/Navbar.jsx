@@ -3,10 +3,11 @@ import CustomButton from "../../atoms/CustomButton/CustomButton";
 import CustomInput from "../../atoms/CustomInput/CustomInput";
 import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles } from "@material-ui/core/styles";
-import Logo from "../../../assets/bisell_logo.png";
+import Logo from "../../../assets/bisell_logo.jpg";
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import IconButton from "@material-ui/core/IconButton";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 
 const useStyles = makeStyles({
   icon: {
@@ -21,7 +22,14 @@ const useStyles = makeStyles({
     color: "black",
     fontSize: "35px",
     cursor: "pointer",
-    marginLeft: "40px",
+    marginLeft: "30px",
+  },
+
+  notif: {
+    color: "black",
+    fontSize: "35px",
+    cursor: "pointer",
+    marginLeft: "30px",
   },
 });
 
@@ -29,7 +37,7 @@ function Navbar() {
   const classes = useStyles();
 
   return (
-    <div className="flex w-full justify-around p-4 items-center border-b-2 border-offWhite z-100">
+    <div className="bg-navbar flex w-full justify-around p-4 items-center border-b-2 border-offWhite z-100">
       {/* logo */}
       <div>
         <img src={Logo} className="h-12 w-50" />
@@ -53,7 +61,9 @@ function Navbar() {
         <div>
           <AccountCircleRoundedIcon className={classes.profile} />
         </div>
-
+        <div>
+          <NotificationsNoneIcon className={classes.notif} />
+        </div>
         <div>
           <ExitToAppIcon className={classes.logout} />
         </div>

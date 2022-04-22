@@ -34,14 +34,18 @@ module.exports = {
         warning: "#F9CF48",
         offWhite: "#e3e3e3",
         lightText: "#5C7A7D",
+        back: "#F2F4F5",
+        navbar: "#F7F8F9",
       },
       fontSize: {
         11: "11px",
+        15: "15px",
         30: "30px",
         40: "40px",
       },
       width: {
         "100p": "100%",
+        "95p": "95%",
         "80p": "80%",
         "50p": "50%",
         "20p": "20%",
