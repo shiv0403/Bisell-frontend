@@ -13,6 +13,7 @@ import AdPage from "./Pages/AdPage";
 import Home from "./Pages/Home";
 import PostAd from "./Pages/PostAd";
 import Profile from "./Pages/Profile";
+import SearchPage from "./Pages/SearchPage";
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
           {/* <Profile /> */}
           {/* <MyAdCard /> */}
           {/* <PhotoUpload /> */}
-          <PostAd />
+          {/* <PostAd /> */}
+          <SearchPage />
         </div>
       </div>
     </div>

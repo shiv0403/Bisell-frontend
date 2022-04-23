@@ -87,7 +87,7 @@ function PostAd() {
           </div>
 
           {/* 6 photo uploads */}
-          <div className="grid grid-cols-3 gap-4 w-40p mt-3">
+          <div className="grid grid-cols-3 gap-4 w-40p mt-5">
             <div>
               <PhotoUpload handleFileChange={handleFileChange} />
             </div>

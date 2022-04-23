@@ -49,7 +49,7 @@ function CustomMultiselect({ items, value, ...otherProps }) {
         input={<BootstrapInput />}
         {...otherProps}
       >
-        {items.map((item) => (
+        {items?.map((item) => (
           <MenuItem value={item}>{item}</MenuItem>
         ))}
       </Select>
