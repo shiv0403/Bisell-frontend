@@ -9,6 +9,7 @@ import AdCard from "./components/molecules/AdCard/AdCard";
 import Navbar from "./components/organisms/Navbar/Navbar";
 import AdPage from "./Pages/AdPage";
 import Home from "./Pages/Home";
+import Profile from "./Pages/Profile";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
         <Navbar />
         {/* <Home /> */}
         <div>
-          <AdPage />
+          {/* <AdPage /> */}
+          <Profile />
         </div>
       </div>
     </div>
