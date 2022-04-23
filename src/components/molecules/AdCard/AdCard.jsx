@@ -18,7 +18,7 @@ function AdCard() {
 
   return (
     <div
-      className="border-lightGray relative rounded cursor-pointer"
+      className="border-lightGray relative rounded cursor-pointer bg-white"
       style={{ width: "40vh", borderWidth: "1px" }}
     >
       {/* image */}

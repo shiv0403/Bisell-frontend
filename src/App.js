@@ -6,6 +6,7 @@ import AdDetails from "./components/molecules/AboutAd/AdDetails";
 import ImageCarousel from "./components/molecules/AboutAd/ImageCarousel";
 import MapContainer from "./components/molecules/AboutAd/MapContainer";
 import AdCard from "./components/molecules/AdCard/AdCard";
+import MyAdCard from "./components/molecules/MyAdCard/MyAdCard";
 import Navbar from "./components/organisms/Navbar/Navbar";
 import AdPage from "./Pages/AdPage";
 import Home from "./Pages/Home";
@@ -20,6 +21,7 @@ function App() {
         <div>
           {/* <AdPage /> */}
           <Profile />
+          {/* <MyAdCard /> */}
         </div>
       </div>
     </div>

@@ -14,20 +14,20 @@ const useStyles = makeStyles({
     fontSize: "30px",
   },
   profile: {
-    fontSize: "40px",
+    fontSize: "33px",
     color: "gray",
     cursor: "pointer",
   },
   logout: {
     color: "black",
-    fontSize: "35px",
+    fontSize: "30px",
     cursor: "pointer",
     marginLeft: "30px",
   },
 
   notif: {
     color: "black",
-    fontSize: "35px",
+    fontSize: "30px",
     cursor: "pointer",
     marginLeft: "30px",
   },

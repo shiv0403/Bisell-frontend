@@ -20,6 +20,7 @@ module.exports = {
       warning: "#F9CF48",
       offWhite: "#e3e3e3",
       lightText: "#5C7A7D",
+      red: "#ED4D19",
     },
     extend: {
       colors: {
@@ -36,6 +37,7 @@ module.exports = {
         lightText: "#5C7A7D",
         back: "#F2F4F5",
         navbar: "#F7F8F9",
+        red: "#ED4D19",
       },
       fontSize: {
         11: "11px",
@@ -52,6 +54,7 @@ module.exports = {
         "30p": "30%",
         "25p": "25%",
         "20p": "20%",
+        "15p": "15%",
       },
     },
   },

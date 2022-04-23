@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ProfileNav from "../components/molecules/ProfileNav/ProfileNav";
+import MyAds from "../components/organisms/Profile/MyAds";
 import ProfileMain from "../components/organisms/Profile/Profile";
 
 function Profile() {
@@ -27,9 +28,17 @@ function Profile() {
             handleMyAds={handleMyAds}
           />
         </div>
-        <div className="w-full">
-          <ProfileMain />
-        </div>
+        {editProfile && (
+          <div className="w-full">
+            <ProfileMain />
+          </div>
+        )}
+
+        {ads && (
+          <div className="w-full">
+            <MyAds />
+          </div>
+        )}
       </div>
     </div>
   );
