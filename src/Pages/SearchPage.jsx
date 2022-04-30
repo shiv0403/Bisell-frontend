@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import CustomInput from "../components/atoms/CustomInput/CustomInput";
 import CustomMultiselect from "../components/atoms/CustomMultiselect/CustomMultiselect";
 import AdCard from "../components/molecules/AdCard/AdCard";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -11,7 +10,7 @@ function SearchPage() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [collegesSelected, setCollegesSelected] = useState([]);
   const [collegeSelected, setCollegeSelected] = useState("");
-  const [sortBy, setSortBy] = useState("");
+  const [sortBy, setSortBy] = useState("Date published");
 
   const colleges = [
     "Jaypee institute of information technology, noida",
