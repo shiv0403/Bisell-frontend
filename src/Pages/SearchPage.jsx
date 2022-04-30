@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import CustomInput from "../components/atoms/CustomInput/CustomInput";
 import CustomMultiselect from "../components/atoms/CustomMultiselect/CustomMultiselect";
 import AdCard from "../components/molecules/AdCard/AdCard";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 function SearchPage() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [collegesSelected, setCollegesSelected] = useState([]);
+  const [collegeSelected, setCollegeSelected] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
   const colleges = [
     "Jaypee institute of information technology, noida",
@@ -14,10 +21,21 @@ function SearchPage() {
     "Jawaharlal national institute of tenchnology, delhi",
   ];
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseSort = (param, order) => {
+    setAnchorEl(null);
+  };
+
   return (
     <div className="w-85p m-auto flex justify-between mt-7">
       {/* filters and sort */}
-      <div className="w-30p mr-5 mt-12 border-2 border-offWhite p-5 bg-white">
+      <div
+        className="mr-5 mt-12 border-2 border-offWhite p-5 bg-white"
+        style={{ width: "500px" }}
+      >
         {/* filters */}
         <div>
           <div>
@@ -37,17 +55,26 @@ function SearchPage() {
               <CustomMultiselect
                 items={colleges}
                 className="w-full"
-                onChange={(e) =>
-                  setCollegesSelected((prev) => [...prev, e.target.value])
+                value={
+                  collegeSelected.slice(0, 40) +
+                  `${collegeSelected.length > 40 && "..."}`
                 }
+                onChange={(e) => {
+                  setCollegesSelected((prev) => [...prev, e.target.value]);
+                  setCollegeSelected(e.target.value);
+                }}
               />
             </div>
 
             {/* selected colleges */}
             <div className="mt-3">
               {collegesSelected?.map((college) => (
-                <p className="mb-2 bg-primary text-white inline-block mr-3 px-2 py-1 rounded-full text-sm">
-                  <span>{college}</span>
+                <p
+                  className="mb-2 bg-primary text-white inline-block mr-3 px-2 py-1 rounded-full text-sm"
+                  key={college}
+                >
+                  <span>{college.slice(0, 40)}</span>
+                  {college.length > 40 && <span>...</span>}
                 </p>
               ))}
             </div>
@@ -76,11 +103,59 @@ function SearchPage() {
         </div>
       </div>
 
-      <div className="w-full">
-        <div>
-          <h1 className="text-2xl font-bold mb-4 tracking-wider">
-            Results of "random query"
-          </h1>
+      <div className="w-full ">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-xl font-bold mb-4 tracking-wider">
+              <span className="font-normal">Results of </span>"random query"
+            </h1>
+          </div>
+
+          {/* sort by */}
+          <div className="flex items-center">
+            <div>
+              <p>
+                <span className="font-bold">SORT BY</span>: {sortBy}
+              </p>
+            </div>
+            <div>
+              <div className="ml-2 cursor-pointer" onClick={handleClick}>
+                <ExpandMoreIcon />
+              </div>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleCloseSort}
+              >
+                <MenuItem
+                  onClick={(e) => {
+                    handleCloseSort("date");
+                    setSortBy("Date published");
+                  }}
+                >
+                  Date published
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleCloseSort("price", "asc");
+                    setSortBy("Price low to high");
+                  }}
+                >
+                  Price low to high
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleCloseSort("price", "desc");
+                    setSortBy("Price high to low");
+                  }}
+                >
+                  Price high to low
+                </MenuItem>
+              </Menu>
+            </div>
+          </div>
         </div>
         <div className="grid grid-cols-3 gap-6">
           <AdCard />
