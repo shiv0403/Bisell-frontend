@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -7,6 +7,10 @@ import Logo from "../../../assets/bisell_logo.png";
 import CustomInput from "../../atoms/CustomInput/CustomInput";
 import CustomButton from "../../atoms/CustomButton/CustomButton";
 import ClearIcon from "@material-ui/icons/Clear";
+import axios from "../../../utils/axios";
+import { errorToast, successToast } from "../../../utils/toast";
+// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -26,23 +30,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login() {
+function Login({ open, handleClose, handleOpen }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [disable, setDisable] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const handleLogin = async () => {
+    setDisable(true);
+    try {
+      const response = await axios.post("/login", { email, password });
+      const userData = response.data.user;
 
-  const handleClose = () => {
-    setOpen(false);
+      localStorage.setItem("userId", userData.id);
+      localStorage.setItem("email", userData.email);
+
+      successToast("Logged in", 3000);
+
+      handleClose();
+      setDisable(false);
+    } catch (error) {
+      const errors = error.response.data.err;
+      if (errors.email) {
+        errorToast(errors.email, 3000);
+      } else if (errors.password) {
+        errorToast(errors.password, 3000);
+      }
+
+      setDisable(false);
+    }
   };
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Login
-      </button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -85,6 +105,8 @@ function Login() {
                   <CustomInput
                     placeholder="Email address"
                     className="border-2 border-primary w-full p-2"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div>
@@ -92,12 +114,16 @@ function Login() {
                     placeholder="Password"
                     type="password"
                     className="border-2 border-primary w-full p-2 mt-3"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div>
                   <CustomButton
                     text="Login"
                     className="p-2 mt-3 w-full text-md font-bold tracking-widest"
+                    onClick={handleLogin}
+                    disabled={disable}
                   />
                 </div>
               </div>

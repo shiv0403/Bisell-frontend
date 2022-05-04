@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomButton from "../../atoms/CustomButton/CustomButton";
 import CustomInput from "../../atoms/CustomInput/CustomInput";
 import SearchIcon from "@material-ui/icons/Search";
@@ -8,6 +8,7 @@ import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import { useNavigate } from "react-router-dom";
+import Login from "../Login/Login";
 
 const useStyles = makeStyles({
   icon: {
@@ -35,8 +36,19 @@ const useStyles = makeStyles({
 });
 
 function Navbar() {
+  const [openLogin, setOpenLogin] = useState(false);
   const classes = useStyles();
   const navigate = useNavigate();
+
+  const userId = localStorage.getItem("userId");
+
+  const handleOpen = () => {
+    setOpenLogin(true);
+  };
+
+  const handleClose = () => {
+    setOpenLogin(false);
+  };
 
   return (
     <div className="bg-navbar flex w-full justify-around p-4 items-center border-b-2 border-offWhite z-100">
@@ -64,6 +76,14 @@ function Navbar() {
         />
       </div>
 
+      <div>
+        <Login
+          open={openLogin}
+          handleClose={handleClose}
+          handleOpen={handleOpen}
+        />
+      </div>
+
       {/* Auth / Profile */}
       <div className="flex items-center">
         <div>
@@ -73,18 +93,26 @@ function Navbar() {
             onClick={() => navigate("/post-ad")}
           />
         </div>
-        <div>
-          <AccountCircleRoundedIcon
-            className={classes.profile}
-            onClick={() => navigate("/profile")}
-          />
-        </div>
-        <div>
-          <NotificationsNoneIcon className={classes.notif} />
-        </div>
-        <div>
-          <ExitToAppIcon className={classes.logout} />
-        </div>
+        {userId ? (
+          <div className="flex items-center">
+            <div>
+              <AccountCircleRoundedIcon
+                className={classes.profile}
+                onClick={() => navigate("/profile")}
+              />
+            </div>
+            <div>
+              <NotificationsNoneIcon className={classes.notif} />
+            </div>
+            <div>
+              <ExitToAppIcon className={classes.logout} />
+            </div>
+          </div>
+        ) : (
+          <div onClick={handleOpen}>
+            <p className="underline ml-10 text-xl cursor-pointer">Login</p>
+          </div>
+        )}
       </div>
     </div>
   );
