@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
+import * as timeago from "timeago.js";
 
-function Breif() {
+function Breif({ ad }) {
   const [college, setCollege] = useState("Jaypee Institute of Information");
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -17,7 +18,7 @@ function Breif() {
         {/* quote */}
         <div className="">
           <h3 className="font-bold text-3xl font-sans tracking-wide">
-            $22,000
+            ${ad?.quote}
           </h3>
         </div>
 
@@ -41,18 +42,13 @@ function Breif() {
 
       {/* description */}
       <div>
-        <p className="text-lightText text-lg font-sans mt-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
-          dignissimos!
-        </p>
+        <p className="text-lightText text-lg font-sans mt-2">{ad?.title}</p>
       </div>
 
       {/* org and time */}
       <div className="flex justify-between mt-5 mb-1">
-        <p className="text-black1 text-11">
-          {college.slice(0, 40).toUpperCase()}
-        </p>
-        <p className="text-black1 text-11">09 APRIL</p>
+        <p className="text-black1 text-11">{ad?.user?.college.college}</p>
+        <p className="text-black1 text-11">{timeago.format(ad.createdAt)}</p>
       </div>
     </div>
   );

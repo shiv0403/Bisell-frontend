@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomInput from "../../atoms/CustomInput/CustomInput";
 import Avatar from "@material-ui/core/Avatar";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Sample from "../../../assets/sample.jpeg";
 import CustomMultiselect from "../../atoms/CustomMultiselect/CustomMultiselect";
 import CustomButton from "../../atoms/CustomButton/CustomButton";
+import axios from "../../../utils/axios";
+import { errorToast, successToast } from "../../../utils/toast";
 
 const useStyles = makeStyles({
   profileImage: {
@@ -16,20 +18,68 @@ const useStyles = makeStyles({
 
 function Profile() {
   const classes = useStyles();
+  const userId = localStorage.getItem("userId");
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
-  const [college, setCollege] = useState("");
+  const [image, setImage] = useState("");
+  const [collegeName, setCollegeName] = useState("");
+  const [collegeId, setCollegeId] = useState("");
+  const [colleges, setColleges] = useState([]);
+  const [collegeNames, setCollegeNames] = useState([]);
 
-  const colleges = [
-    "Jaypee institute of information technology, noida",
-    "Indian institute of technology, Bombay",
-    "All india institute of medical sciences",
-    "Manipal institute of technology, manglore",
-    "Jawaharlal national institute of tenchnology, delhi",
-  ];
+  const testColleges = ["college-1", "college-2"];
+
+  useEffect(() => {
+    async function getUserData() {
+      await axios
+        .get(`/get-user/${userId}`)
+        .then((response) => {
+          // console.log(response.data.user);
+          const userData = response.data.user;
+          const collegeData = response.data.colleges;
+
+          setName(userData.name);
+          setPhone(userData.phone);
+          setEmail(userData.email);
+          setBio(userData.about);
+          setCollegeName(userData.college.college);
+
+          setColleges(collegeData);
+
+          let clgNames = [];
+
+          collegeData.map((college) => clgNames.push(college.college));
+          setCollegeNames(clgNames);
+        })
+        .catch((err) => {
+          errorToast(err.message, 5000);
+        });
+    }
+
+    getUserData();
+  }, []);
+
+  const handleSaveChanges = async () => {
+    await axios
+      .put("/update-user", {
+        userId,
+        name,
+        email,
+        about: bio,
+        phone,
+        collegeId,
+        image,
+      })
+      .then((response) => {
+        successToast(response.data.msg, 3000);
+      })
+      .catch((err) => {
+        errorToast(err.message, 5000);
+      });
+  };
 
   return (
     <div className="border-2 border-offWhite relative">
@@ -95,12 +145,21 @@ function Profile() {
           </div>
 
           <div>
-            <CustomMultiselect
-              items={colleges}
-              value={college}
-              onChange={(e) => setCollege(e.target.value)}
-              className="w-40p"
-            />
+            {collegeNames !== undefined && collegeName !== undefined && (
+              <CustomMultiselect
+                items={collegeNames}
+                value={collegeName}
+                onChange={(e) => {
+                  setCollegeName(e.target.value);
+                  let obj = colleges.find(
+                    (clg) => clg.college === e.target.value
+                  );
+
+                  setCollegeId(obj.id);
+                }}
+                className="w-40p"
+              />
+            )}
           </div>
         </div>
       </div>
@@ -109,6 +168,7 @@ function Profile() {
         <CustomButton
           text="Save changes"
           className="mt-5 p-3 tracking-wider flex flex-row items-end"
+          onClick={handleSaveChanges}
         />
       </div>
     </div>

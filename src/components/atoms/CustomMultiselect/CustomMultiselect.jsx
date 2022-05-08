@@ -50,7 +50,7 @@ function CustomMultiselect({ items, value, ...otherProps }) {
         {...otherProps}
       >
         {items?.map((item) => (
-          <MenuItem value={item} key={item}>
+          <MenuItem value={item} key={item + Math.random()}>
             {item}
           </MenuItem>
         ))}

@@ -1,7 +1,7 @@
 import React from "react";
 import SiteMap from "../../../assets/sitemap.png";
 
-function MapContainer() {
+function MapContainer({ ad }) {
   return (
     <div
       className="border-lightGray relative rounded cursor-pointer py-4 px-5"
@@ -14,7 +14,7 @@ function MapContainer() {
       </div>
 
       <div>
-        <p className="my-2">Jaypee Institue of Information Technology, Noida</p>
+        <p className="my-2">{ad?.user.college.college}</p>
       </div>
 
       {/* google map image */}

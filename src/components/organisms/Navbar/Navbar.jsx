@@ -7,8 +7,9 @@ import Logo from "../../../assets/bisell_logo.jpg";
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Login from "../Login/Login";
+import { addQueryParams } from "../../../utils/queryParams";
 
 const useStyles = makeStyles({
   icon: {
@@ -36,11 +37,14 @@ const useStyles = makeStyles({
 });
 
 function Navbar() {
-  const [openLogin, setOpenLogin] = useState(false);
   const classes = useStyles();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const userId = localStorage.getItem("userId");
+
+  const [openLogin, setOpenLogin] = useState(false);
+  const [search, setSearch] = useState("");
 
   const handleOpen = () => {
     setOpenLogin(true);
@@ -48,6 +52,12 @@ function Navbar() {
 
   const handleClose = () => {
     setOpenLogin(false);
+  };
+
+  const handleSearch = () => {
+    let path = "/search";
+
+    addQueryParams(navigate, location, "query", search, path);
   };
 
   return (
@@ -68,11 +78,14 @@ function Navbar() {
           placeholder="Search for you essentials..."
           className="w-full border-2 border-primary p-2 text-lg bg-white"
           width="w-95p"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
+
         <CustomButton
           icon={<SearchIcon className={classes.icon} />}
           className="color-white p-2 px-3 h-12 bg-primary"
-          onClick={() => navigate("/search")}
+          onClick={handleSearch}
         />
       </div>
 
