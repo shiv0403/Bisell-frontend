@@ -14,6 +14,19 @@ function AdPage() {
   const [ad, setAd] = useState("");
 
   useEffect(() => {
+    async function viewAd() {
+      await axios
+        .put("/ad-view/", { adId })
+        .then((response) => {})
+        .catch((err) => {
+          errorToast(err.message);
+        });
+    }
+
+    viewAd();
+  }, []);
+
+  useEffect(() => {
     async function getAdData() {
       await axios
         .get(`/ad-get/${adId}`)
