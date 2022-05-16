@@ -59,13 +59,19 @@ function AdCard({ ad }) {
       >
         {/* image */}
         <div className="px-10 pt-3">
-          <img src={images[0]} className="h-50" alt="ad-img" />
+          <img
+            src={images[0]}
+            alt="ad-img"
+            style={{ height: "120px", margin: "auto" }}
+          />
         </div>
 
         {/* quote and desc */}
         <div className="px-4 py-3">
-          <h3 className="font-bold text-2xl font-sans">$ {ad.quote}</h3>
-          <p className="text-lightText font-sans">{ad.description}</p>
+          <h3 className="font-bold text-2xl font-sans">₹ {ad.quote}</h3>
+          <p className="text-lightText font-sans">
+            {ad.description.slice(0, 34) + "..."}
+          </p>
         </div>
 
         {/* org and time */}

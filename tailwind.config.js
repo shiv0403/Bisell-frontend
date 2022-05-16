@@ -21,6 +21,7 @@ module.exports = {
       offWhite: "#e3e3e3",
       lightText: "#5C7A7D",
       red: "#ED4D19",
+      alternate: "#f2faff",
     },
     extend: {
       colors: {
@@ -38,6 +39,7 @@ module.exports = {
         back: "#F2F4F5",
         navbar: "#F7F8F9",
         red: "#ED4D19",
+        alternate: "#f2faff",
       },
       fontSize: {
         11: "11px",

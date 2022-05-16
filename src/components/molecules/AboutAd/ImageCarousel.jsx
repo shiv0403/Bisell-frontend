@@ -2,11 +2,6 @@ import React, { useEffect, useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
-import img1 from "../../../assets/sitemap.png";
-import img2 from "../../../assets/sample.jpeg";
-import img3 from "../../../assets/sample.webp";
-import img4 from "../../../assets/sitemap.png";
-
 function ImageCarousel({ ad }) {
   const [images, setImages] = useState([]);
 
@@ -19,11 +14,14 @@ function ImageCarousel({ ad }) {
   }, []);
 
   return (
-    <div className="border-offWhite border-2 mb-5">
+    <div
+      className="border-offWhite border-2 mb-5"
+      style={{ height: "570px", width: "820px" }}
+    >
       <Carousel dynamicHeight={false}>
         {images?.map((img) => (
           <div>
-            <img src={img} alt={"img"} />
+            <img src={img} alt={"img"} style={{ aspectRatio: "16/9" }} />
           </div>
         ))}
       </Carousel>

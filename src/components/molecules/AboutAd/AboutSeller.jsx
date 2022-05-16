@@ -12,7 +12,7 @@ import axios from "../../../utils/axios";
 import { errorToast, successToast } from "../../../utils/toast";
 
 function AboutSeller({ ad }) {
-  const userId = localStorage.getItem("userId");
+  const userId = parseInt(localStorage.getItem("userId"));
   const [user, setUser] = useState(ad?.user);
   const [status, setStatus] = useState(0);
 
@@ -26,7 +26,7 @@ function AboutSeller({ ad }) {
         status: 2, //pending
       })
       .then((response) => {
-        successToast("Request sent", 3000);
+        successToast("Request sent", 5000);
         setStatus(2);
       })
       .catch((err) => {
@@ -35,7 +35,6 @@ function AboutSeller({ ad }) {
   };
 
   useEffect(() => {
-    console.log("ad details", ad);
     async function getStatus() {
       await axios
         .get("/ad-request-status", {
@@ -109,7 +108,7 @@ function AboutSeller({ ad }) {
       ) : status === 2 ? (
         <div>
           <div className="mt-4 mb-2">
-            <p className="px-5 py-3 tracking-widest text-20 w-full border-2 border-primary text-center bg-offWhite">
+            <p className="px-5 py-2 tracking-widest text-20 w-full border-2 border-primary text-center bg-offWhite">
               Request pending
             </p>
           </div>

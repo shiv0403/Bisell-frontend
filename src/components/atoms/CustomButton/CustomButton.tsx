@@ -41,7 +41,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         },
         {
           "bg-primary text-white": !outlined,
-          "bg-white text-coolGray border border-lightGray": outlined,
+          "bg-white text-coolGray border-2 border-primary": outlined,
         },
         "active:bg-primary font-nexabold leading-5",
         className

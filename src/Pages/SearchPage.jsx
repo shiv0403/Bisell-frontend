@@ -96,6 +96,7 @@ function SearchPage() {
           },
         })
         .then((response) => {
+          console.log("response -->", response.data);
           setResults(response.data);
         })
         .catch((err) => {
@@ -295,7 +296,7 @@ function SearchPage() {
         <div className="grid grid-cols-3 gap-6 mt-5">
           {results.length > 0 &&
             results.map((ad) => (
-              <div>
+              <div key={ad.id}>
                 <AdCard ad={ad} />
               </div>
             ))}

@@ -40,7 +40,7 @@ function MyAdCard({ ad, deleteAd }) {
                 <p className="font-bold">{ad.title}</p>
               </div>
               <div>
-                <p>${ad.quote}</p>
+                <p>₹{ad.quote}</p>
               </div>
             </div>
           </div>
