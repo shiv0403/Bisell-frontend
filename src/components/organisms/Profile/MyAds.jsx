@@ -28,6 +28,21 @@ function MyAds() {
     getMyAds();
   }, []);
 
+  useEffect(() => {
+    async function getMyBookmarks() {
+      await axios
+        .get(`/get-bookmarks/${userId}`)
+        .then((response) => {
+          setMyBookmarks(response.data);
+        })
+        .catch((err) => {
+          errorToast(err.message);
+        });
+    }
+
+    getMyBookmarks();
+  }, []);
+
   const handleDeleteAd = async (adId) => {
     await axios
       .delete(`/ad-delete/${adId}`)
@@ -89,24 +104,11 @@ function MyAds() {
       {/* bookmarks */}
       {bookmarks && (
         <div className="grid grid-cols-3 mt-6 gap-8">
-          <div>
-            <AdCard />
-          </div>
-          <div>
-            <AdCard />
-          </div>
-          <div>
-            <AdCard />
-          </div>
-          <div>
-            <AdCard />
-          </div>
-          <div>
-            <AdCard />
-          </div>
-          <div>
-            <AdCard />
-          </div>
+          {myBookmarks?.map((bookmarkAd) => (
+            <div key={bookmarkAd.id}>
+              <AdCard ad={bookmarkAd?.ad} />
+            </div>
+          ))}
         </div>
       )}
     </div>

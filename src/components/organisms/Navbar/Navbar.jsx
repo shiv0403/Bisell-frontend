@@ -267,27 +267,29 @@ function Navbar() {
                     onClose={handleCloseNotif}
                     className={classes.menu}
                   >
-                    {notifications?.map((notification, idx) => {
-                      return (
-                        <MenuItem
-                          onClick={() => handleCloseNotif(notification)}
-                          key={notification.id}
-                          className={classes.menuItem}
-                        >
-                          <p
-                            dangerouslySetInnerHTML={{
-                              __html: notification.content,
-                            }}
-                            className={
-                              idx & 1
-                                ? "text-sm whitespace-normal p-2"
-                                : "text-sm whitespace-normal p-2 bg-alternate"
-                            }
-                            style={{ width: "20rem" }}
-                          ></p>
-                        </MenuItem>
-                      );
-                    })}
+                    <div className="h-80">
+                      {notifications?.map((notification, idx) => {
+                        return (
+                          <MenuItem
+                            onClick={() => handleCloseNotif(notification)}
+                            key={notification.id}
+                            className={classes.menuItem}
+                          >
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: notification.content,
+                              }}
+                              className={
+                                idx & 1
+                                  ? "text-sm whitespace-normal p-2"
+                                  : "text-sm whitespace-normal p-2 bg-alternate"
+                              }
+                              style={{ width: "20rem" }}
+                            ></p>
+                          </MenuItem>
+                        );
+                      })}
+                    </div>
                   </Menu>
                 </div>
               </div>

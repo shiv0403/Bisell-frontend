@@ -8,10 +8,16 @@ function Home() {
   const navigate = useNavigate();
   const [ads, setAds] = useState([]);
 
+  const userId = localStorage.getItem("userId");
+
   useEffect(() => {
     async function getAds() {
       await axios
-        .get("/ads-get")
+        .get("/ads-get", {
+          params: {
+            userId,
+          },
+        })
         .then((response) => {
           setAds(response.data);
         })

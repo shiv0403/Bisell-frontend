@@ -11,6 +11,8 @@ function AdPage() {
   const url = window.location.href;
   const adId = url.split("/")[4];
 
+  const userId = localStorage.getItem("userId");
+
   const [ad, setAd] = useState("");
 
   useEffect(() => {
@@ -29,7 +31,12 @@ function AdPage() {
   useEffect(() => {
     async function getAdData() {
       await axios
-        .get(`/ad-get/${adId}`)
+        .get(`/ad-get`, {
+          params: {
+            adId,
+            userId,
+          },
+        })
         .then((response) => {
           setAd(response.data);
         })

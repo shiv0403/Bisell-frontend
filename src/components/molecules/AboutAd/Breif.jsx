@@ -3,9 +3,6 @@ import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import * as timeago from "timeago.js";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
 import { makeStyles } from "@material-ui/core/styles";
 import { errorToast, successToast } from "../../../utils/toast";
 import axios from "../../../utils/axios";
@@ -21,7 +18,7 @@ function Breif({ ad }) {
   const userId = localStorage.getItem("userId");
 
   const [college, setCollege] = useState("Jaypee Institute of Information");
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(ad.bookmark?.status);
   const [shareLink, setShareLink] = useState("");
 
   // copy to clipboard

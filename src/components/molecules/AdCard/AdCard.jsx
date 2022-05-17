@@ -20,17 +20,9 @@ function AdCard({ ad }) {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [college, setCollege] = useState(ad.user.college.college);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [college, setCollege] = useState(ad?.user?.college?.college);
+  const [isBookmarked, setIsBookmarked] = useState();
   const [images, setImages] = useState("");
-
-  useEffect(() => {
-    function getImages() {
-      const adImages = JSON.parse(ad?.images);
-      setImages(adImages);
-    }
-    getImages();
-  }, []);
 
   const handleBookmark = async (status) => {
     await axios
@@ -49,6 +41,15 @@ function AdCard({ ad }) {
         errorToast(err.message);
       });
   };
+
+  useEffect(() => {
+    setIsBookmarked(ad.bookmark?.status);
+    function getImages() {
+      const adImages = JSON.parse(ad?.images);
+      setImages(adImages);
+    }
+    getImages();
+  }, []);
 
   return (
     <div className="relative">
