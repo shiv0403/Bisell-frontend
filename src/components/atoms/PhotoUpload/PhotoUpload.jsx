@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import { errorToast } from "../../../utils/toast";
 
-function PhotoUpload({ img, handleFileChange }) {
+function PhotoUpload({ img, handleFileChange, index }) {
   const imgRef = useRef();
 
   const checkFileSize = (event) => {
@@ -48,7 +48,7 @@ function PhotoUpload({ img, handleFileChange }) {
 
   const fileChange = (e) => {
     if (e.target.files.length > 0 && checkMimeType(e) && checkFileSize(e)) {
-      handleFileChange();
+      handleFileChange(e.target.files[0], index);
     }
   };
 

@@ -3,6 +3,10 @@ import Flower from "../../../assets/sample.jpeg";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import { makeStyles } from "@material-ui/core/styles";
+import { useNavigate } from "react-router-dom";
+import * as timeago from "timeago.js";
+import axios from "../../../utils/axios";
+import { errorToast, successToast } from "../../../utils/toast";
 
 const useStyles = makeStyles({
   bookmark: {
@@ -10,36 +14,74 @@ const useStyles = makeStyles({
   },
 });
 
-function AdCard() {
-  const classes = useStyles();
+function AdCard({ ad }) {
+  const userId = localStorage.getItem("userId");
 
-  const [college, setCollege] = useState("Jaypee Institute of Information");
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const classes = useStyles();
+  const navigate = useNavigate();
+
+  const [college, setCollege] = useState(ad?.user?.college?.college);
+  const [isBookmarked, setIsBookmarked] = useState();
+  const [images, setImages] = useState("");
+
+  const handleBookmark = async (status) => {
+    await axios
+      .put("/bookmark", {
+        status,
+        userId,
+        adId: ad.id,
+      })
+      .then((response) => {
+        let message =
+          "Ad " + (status === 0 ? "bookmark removed" : "bookmarked");
+
+        successToast(message, 3000);
+      })
+      .catch((err) => {
+        errorToast(err.message);
+      });
+  };
+
+  useEffect(() => {
+    setIsBookmarked(ad.bookmark?.status);
+    function getImages() {
+      const adImages = JSON.parse(ad?.images);
+      setImages(adImages);
+    }
+    getImages();
+  }, []);
 
   return (
-    <div
-      className="border-lightGray relative rounded cursor-pointer bg-white"
-      style={{ width: "40vh", borderWidth: "1px" }}
-    >
-      {/* image */}
-      <div className="px-10 pt-3">
-        <img src={Flower} className="h-50" />
-      </div>
+    <div className="relative">
+      <div
+        className="border-lightGray relative rounded cursor-pointer bg-white"
+        style={{ width: "40vh", borderWidth: "1px" }}
+        onClick={() => navigate(`/ad-page/${ad?.id}`, { state: ad })}
+      >
+        {/* image */}
+        <div className="px-10 pt-3">
+          <img
+            src={images[0]}
+            alt="ad-img"
+            style={{ height: "120px", margin: "auto" }}
+          />
+        </div>
 
-      {/* quote and desc */}
-      <div className="px-4 py-3">
-        <h3 className="font-bold text-2xl font-sans">$ 22,000</h3>
-        <p className="text-lightText font-sans">
-          Lorem ipsum dolor sit amet....
-        </p>
-      </div>
+        {/* quote and desc */}
+        <div className="px-4 py-3">
+          <h3 className="font-bold text-2xl font-sans">₹ {ad.quote}</h3>
+          <p className="text-lightText font-sans">
+            {ad.description.slice(0, 34) + "..."}
+          </p>
+        </div>
 
-      {/* org and time */}
-      <div className="flex justify-between py-2 px-4 ">
-        <p className="text-black1 text-11">
-          {college.slice(0, 40).toUpperCase()}
-        </p>
-        <p className="text-black1 text-11">09 APRIL</p>
+        {/* org and time */}
+        <div className="flex justify-between py-2 px-4 ">
+          <p className="text-black1 text-11">
+            {college.slice(0, 40).toUpperCase()}
+          </p>
+          <p className="text-black1 text-11">{timeago.format(ad?.createdAt)}</p>
+        </div>
       </div>
 
       {/* bookmark */}
@@ -48,9 +90,17 @@ function AdCard() {
         onClick={() => setIsBookmarked((prev) => !prev)}
       >
         {isBookmarked ? (
-          <BookmarkIcon fontSize="medium" className={classes.bookmark} />
+          <BookmarkIcon
+            fontSize="medium"
+            className={classes.bookmark}
+            onClick={() => handleBookmark(0)}
+          />
         ) : (
-          <BookmarkBorderIcon fontSize="medium" className={classes.bookmark} />
+          <BookmarkBorderIcon
+            fontSize="medium"
+            className={classes.bookmark}
+            onClick={() => handleBookmark(1)}
+          />
         )}
       </div>
     </div>

@@ -18,7 +18,7 @@ function Profile() {
   };
 
   return (
-    <div className="p-10 mx-10">
+    <div className="h-screen p-10 mx-10">
       <div className="flex">
         <div className="w-1/3 mr-10 mt-1">
           <ProfileNav

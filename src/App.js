@@ -5,7 +5,11 @@ import PostAd from "./Pages/PostAd";
 import Profile from "./Pages/Profile";
 import SearchPage from "./Pages/SearchPage";
 import { Routes, Route } from "react-router-dom";
+import Login from "./components/organisms/Login/Login";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
+toast.configure();
 function App() {
   return (
     <div className="bg-back">
@@ -18,6 +22,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/ad-page/:adId" element={<AdPage />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </div>

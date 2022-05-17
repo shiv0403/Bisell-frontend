@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const successToast = (message, time = 5000) => {
   toast.success(message, {
