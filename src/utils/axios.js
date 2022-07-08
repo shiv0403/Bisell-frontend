@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:8080/v1",
+  baseURL: "https://bisell-backend.herokuapp.com/v1",
   withCredentials: true,
 });
