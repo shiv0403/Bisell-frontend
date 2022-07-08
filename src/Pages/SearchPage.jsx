@@ -16,6 +16,8 @@ function SearchPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const userId = localStorage.getItem("userId");
+
   let searchQuery = queryString.parse(location.search)?.query || "";
   let minBudgetQuery = queryString.parse(location.search)?.minBudget || "";
   let maxBudgetQuery = queryString.parse(location.search)?.maxBudget || "";
@@ -93,10 +95,10 @@ function SearchPage() {
             maxBudget: maxBudgetQuery,
             param,
             order,
+            userId,
           },
         })
         .then((response) => {
-          console.log("response -->", response.data);
           setResults(response.data);
         })
         .catch((err) => {

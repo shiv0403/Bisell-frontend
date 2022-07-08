@@ -46,6 +46,7 @@ function Profile() {
           setEmail(userData.email);
           setBio(userData.about);
           setCollegeName(userData.college.college);
+          setCollegeId(userData.college.id);
 
           setColleges(collegeData);
 

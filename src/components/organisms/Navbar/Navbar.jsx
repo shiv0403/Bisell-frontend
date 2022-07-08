@@ -137,24 +137,26 @@ function Navbar() {
   };
 
   useEffect(() => {
-    async function getNotifications() {
-      await axios
-        .get(`/get-notifications/${userId}`)
-        .then((response) => {
-          setNotifications(response.data);
-        })
-        .catch((err) => {
-          errorToast(err.message);
-        });
-    }
+    if (userId) {
+      async function getNotifications() {
+        await axios
+          .get(`/get-notifications/${userId}`)
+          .then((response) => {
+            setNotifications(response.data);
+          })
+          .catch((err) => {
+            errorToast(err.message);
+          });
+      }
 
-    getNotifications();
+      getNotifications();
+    }
   }, []);
 
   return (
     <div className="bg-navbar flex w-full justify-around p-4 items-center border-b-2 border-offWhite z-100">
       {/* logo */}
-      <div>
+      <div className="ml-10">
         <img
           src={Logo}
           className="h-12 w-50 cursor-pointer"
@@ -164,7 +166,7 @@ function Navbar() {
       </div>
 
       {/* search bar */}
-      <div className="flex w-1/2">
+      <div className="flex w-1/2 mx-auto">
         <CustomInput
           placeholder="Search for you essentials..."
           className="w-full border-2 border-primary p-2 text-lg bg-white"
@@ -235,7 +237,7 @@ function Navbar() {
       </div>
 
       {/* Auth / Profile */}
-      <div className="flex items-center">
+      <div className="flex items-center mr-10">
         <div>
           <CustomButton
             text="Post Ad +"
@@ -267,7 +269,7 @@ function Navbar() {
                     onClose={handleCloseNotif}
                     className={classes.menu}
                   >
-                    <div className="h-80">
+                    <div className="max-h-80">
                       {notifications?.map((notification, idx) => {
                         return (
                           <MenuItem

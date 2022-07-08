@@ -85,24 +85,26 @@ function AdCard({ ad }) {
       </div>
 
       {/* bookmark */}
-      <div
-        className="absolute right-1 top-2 cursor-pointer"
-        onClick={() => setIsBookmarked((prev) => !prev)}
-      >
-        {isBookmarked ? (
-          <BookmarkIcon
-            fontSize="medium"
-            className={classes.bookmark}
-            onClick={() => handleBookmark(0)}
-          />
-        ) : (
-          <BookmarkBorderIcon
-            fontSize="medium"
-            className={classes.bookmark}
-            onClick={() => handleBookmark(1)}
-          />
-        )}
-      </div>
+      {userId && (
+        <div
+          className="absolute right-1 top-2 cursor-pointer"
+          onClick={() => setIsBookmarked((prev) => !prev)}
+        >
+          {isBookmarked ? (
+            <BookmarkIcon
+              fontSize="medium"
+              className={classes.bookmark}
+              onClick={() => handleBookmark(0)}
+            />
+          ) : (
+            <BookmarkBorderIcon
+              fontSize="medium"
+              className={classes.bookmark}
+              onClick={() => handleBookmark(1)}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }

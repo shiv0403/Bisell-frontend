@@ -67,23 +67,24 @@ function Breif({ ad }) {
           <div className="cursor-pointer">
             <ShareOutlinedIcon fontSize="medium" onClick={handleClick} />
           </div>
-
-          <div
-            className="cursor-pointer ml-4"
-            onClick={() => setIsBookmarked((prev) => !prev)}
-          >
-            {isBookmarked ? (
-              <BookmarkIcon
-                fontSize="medium"
-                onClick={() => handleBookmark(0)}
-              />
-            ) : (
-              <BookmarkBorderIcon
-                fontSize="medium"
-                onClick={() => handleBookmark(1)}
-              />
-            )}
-          </div>
+          {userId && (
+            <div
+              className="cursor-pointer ml-4"
+              onClick={() => setIsBookmarked((prev) => !prev)}
+            >
+              {isBookmarked ? (
+                <BookmarkIcon
+                  fontSize="medium"
+                  onClick={() => handleBookmark(0)}
+                />
+              ) : (
+                <BookmarkBorderIcon
+                  fontSize="medium"
+                  onClick={() => handleBookmark(1)}
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
 

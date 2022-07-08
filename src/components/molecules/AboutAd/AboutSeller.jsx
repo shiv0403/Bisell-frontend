@@ -35,6 +35,7 @@ function AboutSeller({ ad }) {
   };
 
   useEffect(() => {
+    // console.log(ad);
     async function getStatus() {
       await axios
         .get("/ad-request-status", {
@@ -83,44 +84,52 @@ function AboutSeller({ ad }) {
         </div>
       </div>
 
-      {status === 1 ? (
-        <div className="ml-2 mt-3">
-          {/* phone */}
-          <div className="flex items-center">
-            <div className="mr-5">
-              <PhoneIcon />
-            </div>
-            <div>
-              <p className="font-bold tracking-widest text-lg">{user?.phone}</p>
-            </div>
-          </div>
+      {userId !== ad.user.id && (
+        <>
+          {status === 1 ? (
+            <div className="ml-2 mt-3">
+              {/* phone */}
+              <div className="flex items-center">
+                <div className="mr-5">
+                  <PhoneIcon />
+                </div>
+                <div>
+                  <p className="font-bold tracking-widest text-lg">
+                    {user?.phone}
+                  </p>
+                </div>
+              </div>
 
-          {/* email */}
-          <div className="flex items-center mt-2">
-            <div className="mr-5">
-              <EmailIcon />
+              {/* email */}
+              <div className="flex items-center mt-2">
+                <div className="mr-5">
+                  <EmailIcon />
+                </div>
+                <div>
+                  <p className="font-bold tracking-widest text-lg">
+                    {user?.email}
+                  </p>
+                </div>
+              </div>
             </div>
+          ) : status === 2 ? (
             <div>
-              <p className="font-bold tracking-widest text-lg">{user?.email}</p>
+              <div className="mt-4 mb-2">
+                <p className="px-5 py-2 tracking-widest text-20 w-full border-2 border-primary text-center bg-offWhite">
+                  Request pending
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
-      ) : status === 2 ? (
-        <div>
-          <div className="mt-4 mb-2">
-            <p className="px-5 py-2 tracking-widest text-20 w-full border-2 border-primary text-center bg-offWhite">
-              Request pending
-            </p>
-          </div>
-        </div>
-      ) : (
-        <div className="mt-4 mb-2">
-          <CustomButton
-            text="Requst for details"
-            className="px-5 py-3 tracking-widest text-20 w-full"
-            onClick={handleRequestDetails}
-          />
-        </div>
+          ) : (
+            <div className="mt-4 mb-2">
+              <CustomButton
+                text="Request for details"
+                className="px-5 py-3 tracking-widest text-20 w-full"
+                onClick={handleRequestDetails}
+              />
+            </div>
+          )}
+        </>
       )}
     </div>
   );
