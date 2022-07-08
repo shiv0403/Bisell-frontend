@@ -8,6 +8,8 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./components/organisms/Login/Login";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import Pagination from "./components/molecules/Pagination/Pagination";
+import Footer from "./components/organisms/Footer/Footer";
 
 toast.configure();
 function App() {
@@ -24,6 +26,8 @@ function App() {
           <Route path="/ad-page/:adId" element={<AdPage />} />
           <Route path="/login" element={<Login />} />
         </Routes>
+
+        <Footer />
       </div>
     </div>
   );

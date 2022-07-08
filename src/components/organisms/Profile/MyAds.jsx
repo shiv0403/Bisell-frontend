@@ -104,11 +104,15 @@ function MyAds() {
       {/* bookmarks */}
       {bookmarks && (
         <div className="grid grid-cols-3 mt-6 gap-8">
-          {myBookmarks?.map((bookmarkAd) => (
-            <div key={bookmarkAd.id}>
-              <AdCard ad={bookmarkAd?.ad} />
-            </div>
-          ))}
+          {myBookmarks?.map((bookmarkAd) => {
+            if (bookmarkAd?.ad) {
+              return (
+                <div key={bookmarkAd.id}>
+                  <AdCard ad={bookmarkAd?.ad} />
+                </div>
+              );
+            }
+          })}
         </div>
       )}
     </div>

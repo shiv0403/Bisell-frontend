@@ -159,7 +159,7 @@ function PostAd() {
   }, [updateState]);
 
   return (
-    <>
+    <div className="mb-8">
       <div>
         <div>
           <Modal
@@ -400,7 +400,7 @@ function PostAd() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

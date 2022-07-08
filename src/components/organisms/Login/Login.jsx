@@ -41,7 +41,7 @@ function Login({ open, handleClose, handleOpen }) {
     try {
       const response = await axios.post("/login", { email, password });
       const userData = response.data.user;
-
+      // console.log(userData);
       localStorage.setItem("userId", userData.id);
       localStorage.setItem("email", userData.email);
 
