@@ -17,21 +17,25 @@ function AboutSeller({ ad }) {
   const [status, setStatus] = useState(0);
 
   const handleRequestDetails = async () => {
-    await axios
-      .put("/ad-request", {
-        buyerId: userId,
-        sellerId: user.id,
-        type: "request",
-        adId: ad.id,
-        status: 2, //pending
-      })
-      .then((response) => {
-        successToast("Request sent", 5000);
-        setStatus(2);
-      })
-      .catch((err) => {
-        errorToast(err.message);
-      });
+    if (userId) {
+      await axios
+        .put("/ad-request", {
+          buyerId: userId,
+          sellerId: user.id,
+          type: "request",
+          adId: ad.id,
+          status: 2, //pending
+        })
+        .then((response) => {
+          successToast("Request sent", 5000);
+          setStatus(2);
+        })
+        .catch((err) => {
+          errorToast(err.message);
+        });
+    } else {
+      errorToast("Login to request details", 3000);
+    }
   };
 
   useEffect(() => {

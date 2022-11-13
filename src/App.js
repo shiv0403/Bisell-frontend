@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import Pagination from "./components/molecules/Pagination/Pagination";
 import Footer from "./components/organisms/Footer/Footer";
+import EditAd from "./Pages/EditAd";
 
 toast.configure();
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/post-ad" element={<PostAd />} />
+          <Route path="/edit-ad" element={<EditAd />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/ad-page/:adId" element={<AdPage />} />

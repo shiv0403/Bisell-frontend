@@ -20,7 +20,7 @@ function ImageCarousel({ ad }) {
     >
       <Carousel dynamicHeight={false}>
         {images?.map((img) => (
-          <div>
+          <div key={img}>
             <img src={img} alt={"img"} style={{ aspectRatio: "16/9" }} />
           </div>
         ))}

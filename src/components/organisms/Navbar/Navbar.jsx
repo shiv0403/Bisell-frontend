@@ -18,6 +18,7 @@ import { errorToast, successToast } from "../../../utils/toast";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -76,6 +77,7 @@ function Navbar() {
 
   const [openLogin, setOpenLogin] = useState(false);
   const [search, setSearch] = useState("");
+  const [closeIcon, setCloseIcon] = useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -95,7 +97,7 @@ function Navbar() {
 
   const handleSearch = () => {
     let path = "/search";
-
+    setCloseIcon(true);
     addQueryParams(navigate, location, "query", search, path);
   };
 
@@ -136,6 +138,33 @@ function Navbar() {
       });
   };
 
+  const handleDeleteQuery = () => {
+    let pathname = location.pathname;
+    let searchParams = new URLSearchParams(location.search);
+    searchParams.delete("query");
+
+    navigate({
+      pathname: pathname,
+      search: searchParams.toString(),
+    });
+
+    setSearch("");
+    setCloseIcon(false);
+  };
+
+  const handleLogout = async () => {
+    await axios
+      .get("/logout")
+      .then((res) => {
+        successToast(res.data.msg);
+        localStorage.clear();
+        navigate("/");
+      })
+      .catch((err) => {
+        errorToast("Problem in logout");
+      });
+  };
+
   useEffect(() => {
     if (userId) {
       async function getNotifications() {
@@ -166,14 +195,22 @@ function Navbar() {
       </div>
 
       {/* search bar */}
-      <div className="flex w-1/2 mx-auto">
+      <div className="flex w-1/2 mx-auto items-center relative">
         <CustomInput
           placeholder="Search for you essentials..."
-          className="w-full border-2 border-primary p-2 text-lg bg-white"
+          className="w-full border-2 border-primary py-2 px-4 text-lg bg-white"
           width="w-95p"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        {closeIcon && (
+          <div
+            className="absolute right-16 cursor-pointer"
+            onClick={handleDeleteQuery}
+          >
+            <CloseIcon />
+          </div>
+        )}
 
         <CustomButton
           icon={<SearchIcon className={classes.icon} />}
@@ -242,7 +279,9 @@ function Navbar() {
           <CustomButton
             text="Post Ad +"
             className="p-2 rounded"
-            onClick={() => navigate("/post-ad")}
+            onClick={() => {
+              userId ? navigate("/post-ad") : errorToast("Login to post ad");
+            }}
           />
         </div>
         {userId ? (
@@ -297,7 +336,10 @@ function Navbar() {
               </div>
             </div>
             <div>
-              <ExitToAppIcon className={classes.logout} />
+              <ExitToAppIcon
+                className={classes.logout}
+                onClick={handleLogout}
+              />
             </div>
           </div>
         ) : (

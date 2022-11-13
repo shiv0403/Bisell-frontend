@@ -19,7 +19,6 @@ function Home() {
           },
         })
         .then((response) => {
-          console.log(response.data);
           setAds(response.data);
         })
         .catch((err) => {
